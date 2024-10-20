@@ -7,6 +7,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from werkzeug.utils import secure_filename
 import os
+from data import NetflixUnpacker
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secretkey"
@@ -23,11 +24,12 @@ class UploadFileForm(FlaskForm):
 def home():
     form = UploadFileForm()
     if form.validate_on_submit():
-        file = form.file.data
-        print(file)
-        file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
-                               secure_filename(file.filename)))
-        return "File Has Been Uploaded"
+        return NetflixUnpacker(form.file.data).work()
+        # file = form.file.data
+        # print(file)
+        # file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
+        #                        secure_filename(file.filename)))
+        # return "File Has Been Uploaded"
     return render_template("index.html", form=form)
 
 
