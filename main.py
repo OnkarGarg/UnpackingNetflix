@@ -26,11 +26,6 @@ def home():
     if form.validate_on_submit():
         NetflixUnpacker(form.file.data).work()
         return render_template("results.html")
-        # file = form.file.data
-        # print(file)
-        # file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'],
-        #                        secure_filename(file.filename)))
-        # return "File Has Been Uploaded"
     return render_template("index.html", form=form)
 
 
